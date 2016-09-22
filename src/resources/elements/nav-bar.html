@@ -1,6 +1,6 @@
-<template bindable="innerRouter">
+<template bindable="innerRouter, inverse, fixedPosition">
 
-    <nav class="navbar navbar-default">
+    <nav class="navbar ${ inverse ? 'navbar-inverse' : 'navbar-default'} ${ fixedPosition === 'top'  ? 'navbar-static-top' : 'navbar-fixed-bottom'}">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -28,3 +28,4 @@
     </nav>
 
 </template>
+

@@ -7,16 +7,14 @@
 
   <require from="./resources/elements/nav-bar.html"></require>
 
-
-
-  <nav-bar inner-router.bind="router"></nav-bar>
+  <nav-bar inner-router.one-time="router" inverse="true" fixed-position="top"></nav-bar>
 
 
   <div class="container">
 
     <router-view>
 
-      
+
     </router-view>
 
   </div>
