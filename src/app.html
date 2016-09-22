@@ -4,11 +4,10 @@
   <require from="alertify/css/alertify.css"></require>
   <require from="toastr/build/toastr.css"></require>
 
-
   <require from="./resources/elements/nav-bar.html"></require>
 
 
-  <loading-indicator loading.bind="route.isNavigating"></loading-indicator>
+  <loading-indicator loading.bind="route.isNavigating || api.isRequesting"></loading-indicator>
 
   <nav-bar inner-router.one-time="router" inverse="true" fixed-position="top"></nav-bar>
 

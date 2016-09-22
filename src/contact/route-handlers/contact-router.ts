@@ -13,7 +13,8 @@ export class Main {
         // #/contacts/
         config.map([
             { route: 'new', title: 'New Contact', moduleId: '../new-contact', nav: true },
-            { route: '', title: 'Details', moduleId: 'contact/route-handlers/contact-detail-router', nav: true }
+            { route: 'details', title: 'Details', moduleId: 'contact/route-handlers/contact-detail-router', nav: true },
+            { route: '', redirect: 'new' }
         ]);
     }
 }

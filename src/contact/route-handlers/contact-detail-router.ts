@@ -11,8 +11,8 @@ export class ContactDetailRouter {
 
         config.map([
 
-            { route: '', viewPorts: { main: { moduleId: '../contact-list' }, select: { moduleId: '../no-selection' } }, title: 'Select' }
-
+            { route: '', viewPorts: { main: { moduleId: '../contact-list' }, select: { moduleId: '../no-selection' } }, title: 'Select' },
+            { route: ':id', viewPorts: { main: { moduleId: '../contact-list' }, select: { moduleId: '../contact-detail' } } , name : 'contact-details' }
         ]);
 
     }
