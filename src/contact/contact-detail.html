@@ -3,7 +3,7 @@
     <div class="panel panel-primary">
 
         <div class="panel-heading">
-            <h3 class="panel-title">Edit Contact</h3>
+            <h3 class="panel-title">Edit ${fullName | nameFormat:contact.gender}</h3>
         </div>
 
         <div class="panel-body">
@@ -32,7 +32,7 @@
                 </div>
                 <div class="form-group">
                     <div class="checkbox">
-                        <label style="padding-right:5px;margin-right:5px;border-right:1px solid black;">
+                        <label style="padding-right:20px;border-right:1px solid black;">
                             <input type="radio" name="Gender" value="Male" checked.bind="contact.gender"> Male
                         </label>
                         <label>

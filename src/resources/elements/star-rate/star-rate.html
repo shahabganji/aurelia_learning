@@ -1,0 +1,8 @@
+<template css="cursor:${readOnly === true ? 'auto' : 'pointer'}" mouseleave.trigger="mouseLeft()">
+
+    <span class="glyphicon 
+    ${( (mouseRate === -1 && r < rate) || ( mouseRate > -1 && r < mouseRate ) ) ? 'glyphicon-star' : 'glyphicon-star-empty'}"
+        repeat.for="r of maxRate" mouseover.delegate="mouseEnter(r)" click.delegate="setRate(r)">
+    </span>
+
+</template>

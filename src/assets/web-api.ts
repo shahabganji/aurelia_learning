@@ -21,7 +21,7 @@ let contacts = [
     phoneNumber: '867-5309',
     nationality: 1,
     rate: 5,
-    gender: 'Male'
+    gender: 'Female'
   },
   {
     id: getId(),

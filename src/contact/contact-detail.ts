@@ -43,10 +43,16 @@ export class ContactDetail {
         });
     }
 
+    get fullName() {
+        return `${this.contact.firstName} ${this.contact.lastName}`;
+    }
+
 
     save() {
         return this.api.saveContact(this.contact).then(x => {
             this.ea.publish(new ContactSaved(this.contact));
+
+            this.originalContact = JSON.parse(JSON.stringify(this.contact));
             this.notify.success("Contact saved successfully");
         });
     }
