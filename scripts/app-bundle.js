@@ -6,9 +6,10 @@ define('app',["require", "exports"], function (require, exports) {
         App.prototype.configureRouter = function (config, router) {
             this.router = router;
             config.mapUnknownRoutes("not-found");
+            config.title = "Contacts";
             config.map([
-                { route: [''], moduleId: "public/home", name: 'home', nav: true },
-                { route: ["about"], moduleId: "public/about", name: 'about', nav: true },
+                { route: [''], moduleId: "public/home", name: 'home', nav: true, title: 'Home' },
+                { route: ["about"], moduleId: "public/about", name: 'about', nav: true, title: 'About' },
                 { route: "home", redirect: '' }
             ]);
         };
@@ -77,7 +78,8 @@ define('resources/index',["require", "exports"], function (require, exports) {
     exports.configure = configure;
 });
 
-define('text!app.html', ['module'], function(module) { module.exports = "<template>\n\n  <require from=\"bootstrap/css/bootstrap.css\"></require>\n  <require from=\"alertify/css/alertify.css\"></require>\n  <require from=\"toastr/build/toastr.css\"></require>\n\n\n\n  \n\n  <div class=\"container\">\n\n    <router-view></router-view>\n\n  </div>\n\n\n\n\n\n</template>"; });
+define('text!app.html', ['module'], function(module) { module.exports = "<template>\n\n  <require from=\"bootstrap/css/bootstrap.css\"></require>\n  <require from=\"alertify/css/alertify.css\"></require>\n  <require from=\"toastr/build/toastr.css\"></require>\n\n\n  <require from=\"./resources/elements/nav-bar.html\"></require>\n\n\n\n  <nav-bar inner-router.bind=\"router\"></nav-bar>\n\n\n  <div class=\"container\">\n\n    <router-view>\n\n      \n    </router-view>\n\n  </div>\n\n</template>"; });
 define('text!public/about.html', ['module'], function(module) { module.exports = "<template>\r\n    ${message}\r\n</template>\r\n"; });
 define('text!public/home.html', ['module'], function(module) { module.exports = "<template>\r\n\r\n    ${message}\r\n\r\n</template>"; });
+define('text!resources/elements/nav-bar.html', ['module'], function(module) { module.exports = "<template bindable=\"innerRouter\">\r\n\r\n    <nav class=\"navbar navbar-default\">\r\n        <div class=\"container-fluid\">\r\n            <!-- Brand and toggle get grouped for better mobile display -->\r\n            <div class=\"navbar-header\">\r\n                <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\"\r\n                    aria-expanded=\"false\">\r\n                        <span class=\"sr-only\">Toggle navigation</span>\r\n                        <span class=\"icon-bar\"></span>\r\n                        <span class=\"icon-bar\"></span>\r\n                        <span class=\"icon-bar\"></span>\r\n                </button>\r\n                <!--<a class=\"navbar-brand\" href=\"#\"></a>-->\r\n            </div>\r\n\r\n            <!-- Collect the nav links, forms, and other content for toggling -->\r\n            <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\r\n                <ul class=\"nav navbar-nav\">\r\n                    <li class=\"${ route.isActive ? 'active' : ''\" repeat.for=\"route of innerRouter.navigation\">\r\n                        <a href.bind=\"route.href\"> \r\n                            ${route.title}\r\n                        </a>\r\n                    </li>\r\n                </ul>\r\n            </div>\r\n        </div>\r\n    </nav>\r\n\r\n</template>"; });
 //# sourceMappingURL=app-bundle.js.map
