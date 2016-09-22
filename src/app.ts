@@ -19,7 +19,7 @@ export class App {
     config.map([
       { route: [''], moduleId: "public/home", name: 'home', nav: true , title : 'Home' },
       { route: ["about"], moduleId: "public/about", name: 'about', nav: true , title : 'About' },
-      // { route: ["contacts"], moduleId: "contact/contact-route-handler", nav: true },
+      { route: ["contacts"], moduleId: "contact/route-handlers/contact-router", nav: true ,title:'Contacts'},
       {route: "home", redirect: '' }
     ]);
   }

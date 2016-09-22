@@ -10,6 +10,7 @@ define('app',["require", "exports"], function (require, exports) {
             config.map([
                 { route: [''], moduleId: "public/home", name: 'home', nav: true, title: 'Home' },
                 { route: ["about"], moduleId: "public/about", name: 'about', nav: true, title: 'About' },
+                { route: ["contacts"], moduleId: "contact/route-handlers/contact-router", nav: true, title: 'Contacts' },
                 { route: "home", redirect: '' }
             ]);
         };
@@ -49,6 +50,24 @@ define('startup',["require", "exports", './environment'], function (require, exp
     exports.configure = configure;
 });
 
+define('contact/new-contact',["require", "exports"], function (require, exports) {
+    "use strict";
+    var NewContact = (function () {
+        function NewContact() {
+        }
+        return NewContact;
+    }());
+    exports.NewContact = NewContact;
+});
+
+define('resources/index',["require", "exports"], function (require, exports) {
+    "use strict";
+    function configure(config) {
+        config.globalResources(['./elements/loading-indicator', './elements/tab-panel-pills.html']);
+    }
+    exports.configure = configure;
+});
+
 define('public/about',["require", "exports"], function (require, exports) {
     "use strict";
     var About = (function () {
@@ -71,12 +90,20 @@ define('public/home',["require", "exports"], function (require, exports) {
     exports.Home = Home;
 });
 
-define('resources/index',["require", "exports"], function (require, exports) {
+define('contact/route-handlers/main',["require", "exports"], function (require, exports) {
     "use strict";
-    function configure(config) {
-        config.globalResources(['./elements/loading-indicator']);
-    }
-    exports.configure = configure;
+    var Main = (function () {
+        function Main() {
+        }
+        Main.prototype.configureRouter = function (config, router) {
+            this.router = router;
+            config.map([
+                { route: '', title: 'New Contact', moduleId: '../new-contact', nav: true }
+            ]);
+        };
+        return Main;
+    }());
+    exports.Main = Main;
 });
 
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -115,8 +142,29 @@ define('resources/elements/loading-indicator',["require", "exports", 'nprogress'
     exports.LoadingIndicator = LoadingIndicator;
 });
 
+define('contact/route-handlers/contact-router',["require", "exports"], function (require, exports) {
+    "use strict";
+    var Main = (function () {
+        function Main() {
+        }
+        Main.prototype.configureRouter = function (config, router) {
+            this.router = router;
+            config.map([
+                { route: '', title: 'New Contact', moduleId: '../new-contact', nav: true }
+            ]);
+        };
+        return Main;
+    }());
+    exports.Main = Main;
+});
+
 define('text!app.html', ['module'], function(module) { module.exports = "<template>\n\n  <require from=\"bootstrap/css/bootstrap.css\"></require>\n  <require from=\"alertify/css/alertify.css\"></require>\n  <require from=\"toastr/build/toastr.css\"></require>\n\n\n  <require from=\"./resources/elements/nav-bar.html\"></require>\n\n\n  <loading-indicator loading.bind=\"route.isNavigating\"></loading-indicator>\n\n  <nav-bar inner-router.one-time=\"router\" inverse=\"true\" fixed-position=\"top\"></nav-bar>\n\n\n  <div class=\"container\">\n\n    <router-view>\n\n\n    </router-view>\n\n  </div>\n\n</template>"; });
+define('text!contact/new-contact.html', ['module'], function(module) { module.exports = "<template>\r\n\r\n    New contacts will be created here\r\n</template>"; });
 define('text!public/about.html', ['module'], function(module) { module.exports = "<template>\r\n    ${message}\r\n</template>\r\n"; });
 define('text!public/home.html', ['module'], function(module) { module.exports = "<template>\r\n\r\n    ${message}\r\n\r\n</template>"; });
 define('text!resources/elements/nav-bar.html', ['module'], function(module) { module.exports = "<template bindable=\"innerRouter, inverse, fixedPosition\">\r\n\r\n    <nav class=\"navbar ${ inverse ? 'navbar-inverse' : 'navbar-default'} ${ fixedPosition === 'top'  ? 'navbar-static-top' : 'navbar-fixed-bottom'}\">\r\n        <div class=\"container-fluid\">\r\n            <!-- Brand and toggle get grouped for better mobile display -->\r\n            <div class=\"navbar-header\">\r\n                <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\"\r\n                    aria-expanded=\"false\">\r\n                        <span class=\"sr-only\">Toggle navigation</span>\r\n                        <span class=\"icon-bar\"></span>\r\n                        <span class=\"icon-bar\"></span>\r\n                        <span class=\"icon-bar\"></span>\r\n                </button>\r\n                <!--<a class=\"navbar-brand\" href=\"#\"></a>-->\r\n            </div>\r\n\r\n            <!-- Collect the nav links, forms, and other content for toggling -->\r\n            <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\r\n                <ul class=\"nav navbar-nav\">\r\n                    <li class=\"${ route.isActive ? 'active' : ''\" repeat.for=\"route of innerRouter.navigation\">\r\n                        <a href.bind=\"route.href\"> \r\n                            ${route.title}\r\n                        </a>\r\n                    </li>\r\n                </ul>\r\n            </div>\r\n        </div>\r\n    </nav>\r\n\r\n</template>\r\n\r\n"; });
+define('text!contact/route-handlers/main.html', ['module'], function(module) { module.exports = "\r\n<template>\r\n\r\n\r\n\r\n    <router-view></router-view>\r\n\r\n</template>"; });
+define('text!resources/elements/tab-panel.html', ['module'], function(module) { module.exports = "<template bindable=\"tabRouter\" >\r\n\r\n    <ul class=\"nav nav-pills nav-stacked\">\r\n        <li role=\"presentation\" class=\"${route.isActive ? 'active' : ''}\" repeat.for=\"route of tabRouter.navigation\">\r\n            <a href.bind=\"route.href\">\r\n                ${route.title}</a>\r\n        </li>\r\n    </ul>\r\n\r\n\r\n\r\n</template>"; });
+define('text!contact/route-handlers/contact-router.html', ['module'], function(module) { module.exports = "<template>\r\n\r\n\r\n    <tab-panel-pills tab-router.bind=\"router\" class=\"col-sm-2\">\r\n\r\n    </tab-panel-pills>\r\n\r\n    <router-view class=\"col-sm-7\"></router-view>\r\n\r\n\r\n</template>"; });
+define('text!resources/elements/tab-panel-pills.html', ['module'], function(module) { module.exports = "<template bindable=\"tabRouter\" >\r\n\r\n    <ul class=\"nav nav-pills nav-stacked\">\r\n        <li role=\"presentation\" class=\"${route.isActive ? 'active' : ''}\" repeat.for=\"route of tabRouter.navigation\">\r\n            <a href.bind=\"route.href\">\r\n                ${route.title}</a>\r\n        </li>\r\n    </ul>\r\n\r\n\r\n\r\n</template>"; });
 //# sourceMappingURL=app-bundle.js.map

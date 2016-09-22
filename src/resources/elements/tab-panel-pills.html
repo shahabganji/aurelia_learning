@@ -1,0 +1,12 @@
+<template bindable="tabRouter" >
+
+    <ul class="nav nav-pills nav-stacked">
+        <li role="presentation" class="${route.isActive ? 'active' : ''}" repeat.for="route of tabRouter.navigation">
+            <a href.bind="route.href">
+                ${route.title}</a>
+        </li>
+    </ul>
+
+
+
+</template>
