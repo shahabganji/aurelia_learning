@@ -131,6 +131,52 @@
             "path": "../node_modules/aurelia-testing/dist/amd",
             "main": "aurelia-testing",
             "env": "dev"
+          },
+          "jquery",
+          {
+            "name": "bootstrap",
+            "path": "../node_modules/bootstrap/dist",
+            "main": "js/bootstrap",
+            "resources": [
+              "css/bootstrap.css"
+            ],
+            "deps": [
+              "jquery"
+            ],
+            "exports": "$"
+          } , 
+          {
+            "name": "alertify",
+            "path": "../node_modules/alertifyjs/build",
+            "main": "alertify",
+            "resources": [
+              "css/alertify.css"
+            ],
+            "deps": [
+              "jquery"
+            ],
+            "exports": "$"
+          } , 
+
+          {
+            "name": "nprogress",
+            "path": "../node_modules/nprogress",
+            "main": "nprogress",
+            "resources": [
+              "nprogress.css"
+            ]
+          } , 
+          {
+            "name": "toastr",
+            "path": "../node_modules/toastr",
+            "main": "toastr",
+            "resources": [
+              "build/toastr.css"
+            ],
+            "deps": [
+              "jquery"
+            ],
+            "exports": "$"
           }
         ]
       }
