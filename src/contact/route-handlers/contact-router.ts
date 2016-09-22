@@ -1,17 +1,19 @@
 
-import {RouterConfiguration , Router} from 'aurelia-router';
+import { RouterConfiguration, Router } from 'aurelia-router';
 
 
-export class Main{
+export class Main {
 
-    private router:Router;
+    private router: Router;
 
-    configureRouter(config : RouterConfiguration , router : Router){
+    configureRouter(config: RouterConfiguration, router: Router) {
 
         this.router = router;
 
-        config.map( [
-            {route:'' , title:'New Contact' , moduleId : '../new-contact' , nav : true}
-        ] );
+        // #/contacts/
+        config.map([
+            { route: 'new', title: 'New Contact', moduleId: '../new-contact', nav: true },
+            { route: '', title: 'Details', moduleId: 'contact/route-handlers/contact-detail-router', nav: true }
+        ]);
     }
 }

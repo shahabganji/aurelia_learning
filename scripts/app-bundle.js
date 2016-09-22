@@ -150,12 +150,50 @@ define('contact/route-handlers/contact-router',["require", "exports"], function 
         Main.prototype.configureRouter = function (config, router) {
             this.router = router;
             config.map([
-                { route: '', title: 'New Contact', moduleId: '../new-contact', nav: true }
+                { route: 'new', title: 'New Contact', moduleId: '../new-contact', nav: true },
+                { route: '', title: 'Details', moduleId: 'contact/route-handlers/contact-detail-router', nav: true }
             ]);
         };
         return Main;
     }());
     exports.Main = Main;
+});
+
+define('contact/route-handlers/contact-detail-router',["require", "exports"], function (require, exports) {
+    "use strict";
+    var ContactDetailRouter = (function () {
+        function ContactDetailRouter() {
+        }
+        ContactDetailRouter.prototype.configureRouter = function (config, router) {
+            this.router = router;
+            config.map([
+                { route: '', viewPorts: { main: { moduleId: '../contact-list' }, select: { moduleId: '../no-selection' } }, title: 'Select' }
+            ]);
+        };
+        return ContactDetailRouter;
+    }());
+    exports.ContactDetailRouter = ContactDetailRouter;
+});
+
+define('contact/contact-list',["require", "exports"], function (require, exports) {
+    "use strict";
+    var ContactList = (function () {
+        function ContactList() {
+            this.message = "Contact List will be shown here";
+        }
+        return ContactList;
+    }());
+    exports.ContactList = ContactList;
+});
+
+define('contact/no-selection',["require", "exports"], function (require, exports) {
+    "use strict";
+    var NoSelection = (function () {
+        function NoSelection() {
+        }
+        return NoSelection;
+    }());
+    exports.NoSelection = NoSelection;
 });
 
 define('text!app.html', ['module'], function(module) { module.exports = "<template>\n\n  <require from=\"bootstrap/css/bootstrap.css\"></require>\n  <require from=\"alertify/css/alertify.css\"></require>\n  <require from=\"toastr/build/toastr.css\"></require>\n\n\n  <require from=\"./resources/elements/nav-bar.html\"></require>\n\n\n  <loading-indicator loading.bind=\"route.isNavigating\"></loading-indicator>\n\n  <nav-bar inner-router.one-time=\"router\" inverse=\"true\" fixed-position=\"top\"></nav-bar>\n\n\n  <div class=\"container\">\n\n    <router-view>\n\n\n    </router-view>\n\n  </div>\n\n</template>"; });
@@ -167,4 +205,7 @@ define('text!contact/route-handlers/main.html', ['module'], function(module) { m
 define('text!resources/elements/tab-panel.html', ['module'], function(module) { module.exports = "<template bindable=\"tabRouter\" >\r\n\r\n    <ul class=\"nav nav-pills nav-stacked\">\r\n        <li role=\"presentation\" class=\"${route.isActive ? 'active' : ''}\" repeat.for=\"route of tabRouter.navigation\">\r\n            <a href.bind=\"route.href\">\r\n                ${route.title}</a>\r\n        </li>\r\n    </ul>\r\n\r\n\r\n\r\n</template>"; });
 define('text!contact/route-handlers/contact-router.html', ['module'], function(module) { module.exports = "<template>\r\n\r\n\r\n    <tab-panel-pills tab-router.bind=\"router\" class=\"col-sm-2\">\r\n\r\n    </tab-panel-pills>\r\n\r\n    <router-view class=\"col-sm-7\"></router-view>\r\n\r\n\r\n</template>"; });
 define('text!resources/elements/tab-panel-pills.html', ['module'], function(module) { module.exports = "<template bindable=\"tabRouter\" >\r\n\r\n    <ul class=\"nav nav-pills nav-stacked\">\r\n        <li role=\"presentation\" class=\"${route.isActive ? 'active' : ''}\" repeat.for=\"route of tabRouter.navigation\">\r\n            <a href.bind=\"route.href\">\r\n                ${route.title}</a>\r\n        </li>\r\n    </ul>\r\n\r\n\r\n\r\n</template>"; });
+define('text!contact/route-handlers/contact-detail-router.html', ['module'], function(module) { module.exports = "<template>\r\n\r\n\r\n    <router-view name=\"main\" class=\"col-sm-4\"></router-view>\r\n\r\n    <router-view name=\"select\" class=\"col-sm-8\"></router-view>\r\n\r\n\r\n</template>"; });
+define('text!contact/no-selection.html', ['module'], function(module) { module.exports = "\r\n\r\n<template>\r\n\r\n    <h3>Please select a contact</h3>\r\n\r\n</template>"; });
+define('text!contact/contact-list.html', ['module'], function(module) { module.exports = "<template>\r\n    ${message}\r\n</template>"; });
 //# sourceMappingURL=app-bundle.js.map
