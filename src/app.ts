@@ -4,6 +4,7 @@ import { RouterConfiguration, Router } from 'aurelia-router';
 import { WebAPI } from './assets/web-api';
 import { autoinject } from 'aurelia-framework';
 
+import * as toastr from 'toastr';
 
 @autoinject
 export class App {
@@ -15,6 +16,7 @@ export class App {
   constructor(api: WebAPI) {
     this.api = api;
 
+    toastr.options.positionClass = "toast-bottom-left";
   }
 
 

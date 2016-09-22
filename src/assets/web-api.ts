@@ -20,7 +20,8 @@ let contacts = [
     email: 'tolkien@inklings.com',
     phoneNumber: '867-5309',
     nationality: 1,
-    rate: 5
+    rate: 5,
+    gender: 'Male'
   },
   {
     id: getId(),
@@ -29,7 +30,8 @@ let contacts = [
     email: 'lewis@inklings.com',
     phoneNumber: '867-5309',
     nationality: 2,
-    rate: 4
+    rate: 4,
+    gender: 'Male'
   },
   {
     id: getId(),
@@ -38,7 +40,8 @@ let contacts = [
     email: 'barfield@inklings.com',
     phoneNumber: '867-5309',
     nationality: 3,
-    rate: 4
+    rate: 4,
+    gender: 'Male'
   },
   {
     id: getId(),
@@ -47,7 +50,8 @@ let contacts = [
     email: 'williams@inklings.com',
     phoneNumber: '867-5309',
     nationality: 4,
-    rate: 3
+    rate: 3,
+    gender: 'Male'
   },
   {
     id: getId(),
@@ -56,7 +60,8 @@ let contacts = [
     email: 'green@inklings.com',
     phoneNumber: '867-5309',
     nationality: 2,
-    rate: 5
+    rate: 5,
+    gender: 'Male'
   }
 ];
 
@@ -72,7 +77,7 @@ export class WebAPI {
             id: x.id,
             firstName: x.firstName,
             lastName: x.lastName,
-            email: x.email, nationality: x.nationality, rate: x.rate
+            email: x.email, nationality: x.nationality, rate: x.rate, gender: x.gender
           }
         });
         resolve(results);
