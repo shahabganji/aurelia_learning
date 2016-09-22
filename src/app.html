@@ -7,6 +7,9 @@
 
   <require from="./resources/elements/nav-bar.html"></require>
 
+
+  <loading-indicator loading.bind="route.isNavigating"></loading-indicator>
+
   <nav-bar inner-router.one-time="router" inverse="true" fixed-position="top"></nav-bar>
 
 
