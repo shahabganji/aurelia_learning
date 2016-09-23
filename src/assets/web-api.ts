@@ -5,6 +5,19 @@ function getId() {
   return ++id;
 }
 
+
+export interface IContact {
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  nationality: number | null;
+  rate: number | null;
+  gender: string | null;
+
+}
+
 let nations = [
   { id: 1, name: 'Iran', abbr: 'ir' },
   { id: 2, name: 'Australia', abbr: 'au' },

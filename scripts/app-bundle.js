@@ -240,6 +240,11 @@ define('helpers/notification',["require", "exports", 'alertify', 'toastr'], func
                 toastr.success(message);
             });
         };
+        Notification.prototype.error = function () {
+            return new Promise(function (resolve) {
+                toastr.error("Check form errors, you can not submit changes");
+            });
+        };
         return Notification;
     }());
     exports.Notification = Notification;
@@ -382,13 +387,26 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-define('contact/new-contact',["require", "exports", 'aurelia-framework', '../assets/web-api', '../helpers/notification'], function (require, exports, aurelia_framework_1, web_api_1, notification_1) {
+define('contact/new-contact',["require", "exports", 'aurelia-framework', '../assets/web-api', '../helpers/notification', 'aurelia-dependency-injection', 'aurelia-validation', '../validation-renderers/my-bootstrap-renderer'], function (require, exports, aurelia_framework_1, web_api_1, notification_1, aurelia_dependency_injection_1, aurelia_validation_1, my_bootstrap_renderer_1) {
     "use strict";
     var NewContact = (function () {
-        function NewContact(api, notify) {
+        function NewContact(api, notify, validator) {
             this.notify = notify;
+            this.validator = validator;
+            this.contact = {
+                id: 0,
+                firstName: '', lastName: '', email: '',
+                nationality: null, rate: null, gender: null, phoneNumber: ''
+            };
             this.hasFocus = true;
             this.api = api;
+            aurelia_validation_1.ValidationRules
+                .ensure(function (c) { return c.firstName; }).displayName("First Name").required().withMessage("Please enter ${$displayName}")
+                .ensure(function (c) { return c.lastName; }).required().withMessage("Please enter ${$displayName}")
+                .ensure(function (c) { return c.rate; }).required().when(function (x) { return x.email.trim().length > 0; }).withMessage("You should rate when you have email")
+                .ensure(function (c) { return c.email; }).email().when(function (x) { return x.email.trim().length > 0; }).withMessage("Enter email in a correct format")
+                .on(this.contact);
+            this.validator.addRenderer(new my_bootstrap_renderer_1.MyBootstrapRenderer());
         }
         NewContact.prototype.activate = function () {
             var _this = this;
@@ -401,15 +419,27 @@ define('contact/new-contact',["require", "exports", 'aurelia-framework', '../ass
         };
         NewContact.prototype.addNewContact = function () {
             var _this = this;
-            return this.api.saveContact(this.contact).then(function (x) {
-                _this.hasFocus = true;
-                _this.notify.success("Contact saved successfully");
-                _this.contact = null;
+            this.validator.validate().then(function (errors) {
+                console.warn("You have " + errors.length + " error(s).");
+                if (errors.length === 0) {
+                    return _this.api.saveContact(_this.contact).then(function (x) {
+                        _this.hasFocus = true;
+                        _this.notify.success("Contact saved successfully");
+                        _this.contact = {
+                            id: 0,
+                            firstName: '', lastName: '', email: '',
+                            nationality: null, rate: null, gender: null, phoneNumber: ''
+                        };
+                    });
+                }
+                else {
+                    return _this.notify.error();
+                }
             });
         };
         NewContact = __decorate([
-            aurelia_framework_1.inject(web_api_1.WebAPI, notification_1.Notification), 
-            __metadata('design:paramtypes', [web_api_1.WebAPI, notification_1.Notification])
+            aurelia_framework_1.inject(web_api_1.WebAPI, notification_1.Notification, aurelia_dependency_injection_1.NewInstance.of(aurelia_validation_1.ValidationController)), 
+            __metadata('design:paramtypes', [web_api_1.WebAPI, notification_1.Notification, aurelia_validation_1.ValidationController])
         ], NewContact);
         return NewContact;
     }());
@@ -606,11 +636,46 @@ define('resources/elements/star-rate/star-rate',["require", "exports", 'aurelia-
     exports.StarRate = StarRate;
 });
 
+define('validation-renderers/my-bootstrap-renderer',["require", "exports"], function (require, exports) {
+    "use strict";
+    var MyBootstrapRenderer = (function () {
+        function MyBootstrapRenderer() {
+        }
+        MyBootstrapRenderer.prototype.render = function (instruction) {
+            console.info("at the render function");
+            for (var _i = 0, _a = instruction.unrender; _i < _a.length; _i++) {
+                var _b = _a[_i], error = _b.error, elements = _b.elements;
+                for (var _c = 0, elements_1 = elements; _c < elements_1.length; _c++) {
+                    var element_1 = elements_1[_c];
+                    this.remove(error, element_1);
+                }
+            }
+            for (var _d = 0, _e = instruction.render; _d < _e.length; _d++) {
+                var _f = _e[_d], error = _f.error, elements = _f.elements;
+                for (var _g = 0, elements_2 = elements; _g < elements_2.length; _g++) {
+                    var element_2 = elements_2[_g];
+                    this.add(error, element_2);
+                }
+            }
+        };
+        MyBootstrapRenderer.prototype.add = function (error, element) {
+            console.info("add");
+            element.parentElement.classList.add("has-error");
+        };
+        MyBootstrapRenderer.prototype.remove = function (error, element) {
+            console.info("remove");
+            element.parentElement.classList.remove("has-error");
+        };
+        return MyBootstrapRenderer;
+    }());
+    exports.MyBootstrapRenderer = MyBootstrapRenderer;
+});
+
 define('text!app.html', ['module'], function(module) { module.exports = "<template>\n\n  <require from=\"bootstrap/css/bootstrap.css\"></require>\n  <require from=\"alertify/css/alertify.css\"></require>\n  <require from=\"toastr/build/toastr.css\"></require>\n\n  <require from=\"./resources/elements/nav-bar.html\"></require>\n\n\n  <loading-indicator loading.bind=\"route.isNavigating || api.isRequesting\"></loading-indicator>\n\n  <nav-bar inner-router.one-time=\"router\" inverse=\"true\" fixed-position=\"top\"></nav-bar>\n\n\n  <div class=\"container\">\n\n    <router-view>\n\n\n    </router-view>\n\n  </div>\n\n</template>"; });
 define('text!assets/styles.css', ['module'], function(module) { module.exports = "\n\na:focus {\n  outline: none;\n}\n\n.no-selection {\n  margin: 20px;\n}\n\n.contact-list {\n  overflow-y: auto;\n  border: 1px solid #ddd;\n  padding: 10px;\n}\n\n.panel {\n  margin: 20px;\n}\n\n\nli.list-group-item {\n  list-style: none;\n}\n\nli.list-group-item > a {\n  text-decoration: none;\n}\n\nli.list-group-item.active > a {\n  color: white;\n}\n\n\n#nprogress .bar {\n  background:cyan !important;\n  height: 3px !important;\n}"; });
 define('text!contact/contact-detail.html', ['module'], function(module) { module.exports = "<template>\r\n\r\n    <div class=\"panel panel-primary\">\r\n\r\n        <div class=\"panel-heading\">\r\n            <h3 class=\"panel-title\">Edit ${fullName | nameFormat:contact.gender}</h3>\r\n        </div>\r\n\r\n        <div class=\"panel-body\">\r\n\r\n            <form>\r\n                <div class=\"form-group\">\r\n                    <label for=\"FirstName\">FirstName</label>\r\n                    <input type=\"text\" class=\"form-control\" id=\"FirstName\" placeholder=\"FirstName\" value.bind=\"contact.firstName\">\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label for=\"LastName\">LastName</label>\r\n                    <input type=\"text\" class=\"form-control\" id=\"LastName\" placeholder=\"LastName\" value.bind=\"contact.lastName\">\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label for=\"Email\">Email</label>\r\n                    <input type=\"email\" class=\"form-control\" id=\"Email\" placeholder=\"Email\" value.bind=\"contact.email\">\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label for=\"Nationality\">Nationality</label>\r\n                    <Select type=\"email\" class=\"form-control\" id=\"Nationality\" placeholder=\"Nationality\" value.bind=\"contact.nationality\">\r\n                        <option model.bind=\"null\">Please select your nationality</option>\r\n                        <option repeat.for=\"country of countries\"\r\n                        model.bind=\"country.id\"\r\n                        > ${country.abbr} - ${country.name}</option>\r\n                    </Select>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <div class=\"checkbox\">\r\n                        <label style=\"padding-right:20px;border-right:1px solid black;\">\r\n                            <input type=\"radio\" name=\"Gender\" value=\"Male\" checked.bind=\"contact.gender\"> Male\r\n                        </label>\r\n                        <label>\r\n                            <input type=\"radio\" name=\"Gender\" value=\"Female\"  checked.bind=\"contact.gender\" > Female\r\n                        </label>\r\n                    </div>\r\n                </div>\r\n                <button type=\"submit\" class=\"btn btn-success pull-right\" click.delegate=\"save()\">Save</button>\r\n            </form>\r\n\r\n        </div>\r\n    </div>\r\n\r\n\r\n</template>"; });
 define('text!contact/contact-list.html', ['module'], function(module) { module.exports = "<template>\r\n\r\n    <ul class=\"list-group\">\r\n        <li repeat.for=\"contact of contacts\" class=\"list-group-item ${contact.id === $parent.selectedId ? 'active' : ''}\">\r\n            <star-rate class=\"pull-right\" read-only.bind=\"true\" rate.bind=\"contact.rate\" max-rate.bind=\"5\"></star-rate>\r\n            <a route-href=\"route: contact-details; params.bind: {id:contact.id}\" click.delegate=\"$parent.select(contact)\">\r\n                <h4 class=\"list-group-item-heading\">${contact.firstName} ${contact.lastName}</h4>\r\n                <p class=\"list-group-item-text\">${contact.email}</p>\r\n            </a>\r\n        </li>\r\n    </ul>\r\n</template>"; });
-define('text!contact/new-contact.html', ['module'], function(module) { module.exports = "<template>\r\n\r\n    <div class=\"panel panel-primary\">\r\n\r\n        <div class=\"panel-heading\">\r\n            <h3 class=\"panel-title\">Enter contact's information</h3>\r\n        </div>\r\n\r\n        <div class=\"panel-body\">\r\n\r\n            <form>\r\n                <div class=\"form-group\">\r\n                    <label for=\"FirstName\">FirstName</label>\r\n                    <input type=\"text\" class=\"form-control\" id=\"FirstName\" placeholder=\"FirstName\" focus.bind=\"hasFocus\" value.bind=\"contact.firstName\">\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label for=\"LastName\">LastName</label>\r\n                    <input type=\"text\" class=\"form-control\" id=\"LastName\" placeholder=\"LastName\" value.bind=\"contact.lastName\">\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label for=\"Email\">Email</label>\r\n                    <input type=\"email\" class=\"form-control\" id=\"Email\" placeholder=\"Email\" value.bind=\"contact.email\">\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label for=\"Nationality\">Nationality</label>\r\n                    <Select type=\"email\" class=\"form-control\" id=\"Nationality\" placeholder=\"Nationality\" value.bind=\"contact.nationality\">\r\n                        <option model.bind=\"null\">Please select your nationality</option>\r\n                        <option repeat.for=\"country of countries\"\r\n                        model.bind=\"country.id\"\r\n                        > ${country.abbr} - ${country.name}</option>\r\n                    </Select>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <div class=\"checkbox\">\r\n                        <label style=\"padding-right:20px;border-right:1px solid black;\">\r\n                            <input type=\"radio\" name=\"Gender\" value=\"Male\" checked.bind=\"contact.gender\"> Male\r\n                        </label>\r\n                        <label>\r\n                            <input type=\"radio\" name=\"Gender\" value=\"Female\"  checked.bind=\"contact.gender\" > Female\r\n                        </label>\r\n                    </div>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label for=\"Rate\">Your Rate : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>\r\n                    <star-rate color=\"darkgoldenrod\" read-only.bind=\"false\" rate.bind=\"contact.rate\" max-rate.bind=\"5\"></star-rate>\r\n                </div>\r\n                <button type=\"submit\" class=\"btn btn-success pull-right\" click.delegate=\"addNewContact()\">Save</button>\r\n            </form>\r\n\r\n        </div>\r\n    </div>\r\n\r\n\r\n</template>"; });
+define('text!contact/new-contact.html', ['module'], function(module) { module.exports = "<template>\r\n\r\n    <div class=\"panel panel-primary\">\r\n\r\n        <div class=\"panel-heading\">\r\n            <h3 class=\"panel-title\">Enter contact's information</h3>\r\n        </div>\r\n\r\n        <div class=\"panel-body\">\r\n\r\n            <form>\r\n                <div class=\"form-group\">\r\n                    <label for=\"FirstName\">FirstName</label>\r\n                    <input type=\"text\" class=\"form-control\" id=\"FirstName\" placeholder=\"FirstName\" focus.bind=\"hasFocus\" \r\n                    value.bind=\"contact.firstName & validate\">\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label for=\"LastName\">LastName</label>\r\n                    <input type=\"text\" class=\"form-control\" id=\"LastName\" placeholder=\"LastName\" value.bind=\"contact.lastName & validate\">\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label for=\"Email\">Email</label>\r\n                    <input type=\"email\" class=\"form-control\" id=\"Email\" placeholder=\"Email\" value.bind=\"contact.email & validate\">\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label for=\"Nationality\">Nationality</label>\r\n                    <Select type=\"email\" class=\"form-control\" id=\"Nationality\" placeholder=\"Nationality\" value.bind=\"contact.nationality & validate\">\r\n                        <option model.bind=\"null\">Please select your nationality</option>\r\n                        <option repeat.for=\"country of countries\"\r\n                        model.bind=\"country.id\"\r\n                        > ${country.abbr} - ${country.name}</option>\r\n                    </Select>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <div class=\"checkbox\">\r\n                        <label style=\"padding-right:20px;border-right:1px solid black;\">\r\n                            <input type=\"radio\" name=\"Gender\" value=\"Male\" checked.bind=\"contact.gender\"> Male\r\n                        </label>\r\n                        <label>\r\n                            <input type=\"radio\" name=\"Gender\" value=\"Female\"  checked.bind=\"contact.gender\" > Female\r\n                        </label>\r\n                    </div>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label for=\"Rate\">Your Rate : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>\r\n                    <star-rate color=\"darkgoldenrod\" read-only.bind=\"false\" rate.bind=\"contact.rate & validate\" max-rate.bind=\"5\"></star-rate>\r\n                </div>\r\n                <button type=\"submit\" class=\"btn btn-success pull-right\" click.delegate=\"addNewContact()\">Save</button>\r\n            </form>\r\n\r\n        </div>\r\n        <div class=\"panel-footer\" if.bind=\"validator.errors.length\">\r\n            <div class=\"alert alert-danger\">\r\n                <ol>\r\n                    <li repeat.for=\"error of validator.errors\">\r\n                        <a class=\"alert-danger\" style=\"cursor:pointer;\" click.delegate=\"validator.elements.get(error)[0].focus()\">${error}</a>\r\n                    </li>\r\n                </ol>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n\r\n</template>"; });
 define('text!contact/no-selection.html', ['module'], function(module) { module.exports = "\r\n\r\n<template>\r\n\r\n    <h3>Please select a contact</h3>\r\n\r\n</template>"; });
 define('text!public/about.html', ['module'], function(module) { module.exports = "<template>\r\n    ${message}\r\n</template>\r\n"; });
 define('text!public/home.html', ['module'], function(module) { module.exports = "<template>\r\n\r\n    ${message}\r\n\r\n</template>"; });

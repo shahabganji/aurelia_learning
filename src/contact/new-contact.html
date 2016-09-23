@@ -11,19 +11,20 @@
             <form>
                 <div class="form-group">
                     <label for="FirstName">FirstName</label>
-                    <input type="text" class="form-control" id="FirstName" placeholder="FirstName" focus.bind="hasFocus" value.bind="contact.firstName">
+                    <input type="text" class="form-control" id="FirstName" placeholder="FirstName" focus.bind="hasFocus" 
+                    value.bind="contact.firstName & validate">
                 </div>
                 <div class="form-group">
                     <label for="LastName">LastName</label>
-                    <input type="text" class="form-control" id="LastName" placeholder="LastName" value.bind="contact.lastName">
+                    <input type="text" class="form-control" id="LastName" placeholder="LastName" value.bind="contact.lastName & validate">
                 </div>
                 <div class="form-group">
                     <label for="Email">Email</label>
-                    <input type="email" class="form-control" id="Email" placeholder="Email" value.bind="contact.email">
+                    <input type="email" class="form-control" id="Email" placeholder="Email" value.bind="contact.email & validate">
                 </div>
                 <div class="form-group">
                     <label for="Nationality">Nationality</label>
-                    <Select type="email" class="form-control" id="Nationality" placeholder="Nationality" value.bind="contact.nationality">
+                    <Select type="email" class="form-control" id="Nationality" placeholder="Nationality" value.bind="contact.nationality & validate">
                         <option model.bind="null">Please select your nationality</option>
                         <option repeat.for="country of countries"
                         model.bind="country.id"
@@ -42,11 +43,20 @@
                 </div>
                 <div class="form-group">
                     <label for="Rate">Your Rate : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                    <star-rate color="darkgoldenrod" read-only.bind="false" rate.bind="contact.rate" max-rate.bind="5"></star-rate>
+                    <star-rate color="darkgoldenrod" read-only.bind="false" rate.bind="contact.rate & validate" max-rate.bind="5"></star-rate>
                 </div>
                 <button type="submit" class="btn btn-success pull-right" click.delegate="addNewContact()">Save</button>
             </form>
 
+        </div>
+        <div class="panel-footer" if.bind="validator.errors.length">
+            <div class="alert alert-danger">
+                <ol>
+                    <li repeat.for="error of validator.errors">
+                        <a class="alert-danger" style="cursor:pointer;" click.delegate="validator.elements.get(error)[0].focus()">${error}</a>
+                    </li>
+                </ol>
+            </div>
         </div>
     </div>
 

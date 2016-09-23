@@ -13,10 +13,16 @@ export class Notification {
         });
     }
 
-    success(message){
-        return new Promise(resolve=>{
+    success(message) {
+        return new Promise(resolve => {
             toastr.clear();
             toastr.success(message);
+        });
+    }
+
+    error() {
+        return new Promise(resolve => {
+            toastr.error("Check form errors, you can not submit changes");
         });
     }
 
