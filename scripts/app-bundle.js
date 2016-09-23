@@ -643,7 +643,6 @@ define('validation-renderers/my-bootstrap-renderer',["require", "exports"], func
         function MyBootstrapRenderer() {
         }
         MyBootstrapRenderer.prototype.render = function (instruction) {
-            console.info("at the render function");
             for (var _i = 0, _a = instruction.unrender; _i < _a.length; _i++) {
                 var _b = _a[_i], error = _b.error, elements = _b.elements;
                 for (var _c = 0, elements_1 = elements; _c < elements_1.length; _c++) {
@@ -660,11 +659,9 @@ define('validation-renderers/my-bootstrap-renderer',["require", "exports"], func
             }
         };
         MyBootstrapRenderer.prototype.add = function (error, element) {
-            console.info("add");
             element.parentElement.classList.add("has-error");
         };
         MyBootstrapRenderer.prototype.remove = function (error, element) {
-            console.info("remove");
             element.parentElement.classList.remove("has-error");
         };
         return MyBootstrapRenderer;
