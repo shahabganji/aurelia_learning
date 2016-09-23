@@ -6,6 +6,7 @@ export function configure(config: FrameworkConfiguration) {
        ,  './elements/star-rate/star-rate'
        ,  './value-converters/name-format'
        ,  './elements/tab-panel-pills.html'
+       ,  './elements/validation-summary.html'
        
        ]);
 }

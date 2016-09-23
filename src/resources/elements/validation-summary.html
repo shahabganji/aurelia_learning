@@ -1,0 +1,12 @@
+<template bindable="controller, errors">
+
+    <div class="alert alert-danger">
+        <ol>
+            <li repeat.for="error of errors">
+                <a class="alert-danger" style="cursor:pointer;" 
+                click.delegate="controller.elements.get(error)[0].focus()">${error}</a>
+            </li>
+        </ol>
+    </div>
+
+</template>

@@ -50,13 +50,7 @@
 
         </div>
         <div class="panel-footer" if.bind="validator.errors.length">
-            <div class="alert alert-danger">
-                <ol>
-                    <li repeat.for="error of validator.errors">
-                        <a class="alert-danger" style="cursor:pointer;" click.delegate="validator.elements.get(error)[0].focus()">${error}</a>
-                    </li>
-                </ol>
-            </div>
+            <validation-summary controller.bind="validator" errors.bind="validator.errors"></validation-summary>
         </div>
     </div>
 
