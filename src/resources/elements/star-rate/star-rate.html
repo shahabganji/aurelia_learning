@@ -1,4 +1,5 @@
-<template css="cursor:${readOnly === true ? 'auto' : 'pointer'}" mouseleave.trigger="mouseLeft()">
+<template css="cursor:${readOnly === true ? 'auto' : 'pointer'}; color:${color}" mouseleave.trigger="mouseLeft()" 
+>
 
     <span class="glyphicon 
     ${( (mouseRate === -1 && r < rate) || ( mouseRate > -1 && r < mouseRate ) ) ? 'glyphicon-star' : 'glyphicon-star-empty'}"

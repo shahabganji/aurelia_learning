@@ -7,6 +7,7 @@ export class StarRate {
     @bindable({ defaultBindingMode: bindingMode.twoWay }) rate: Number;
     @bindable maxRate: number;
     @bindable readOnly: boolean = true;
+    @bindable color:string = 'Black';
 
 
     private mouseRate = -1;

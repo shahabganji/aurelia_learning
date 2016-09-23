@@ -63,6 +63,7 @@ export class ContactDetail {
             let result = await this.notify.confirm("you have unsaved changes, are you sure you want to leave this page?");
 
             if (!result) {
+                //  this.routeConfig.navModel.setTitle(this.contact.firstName);
                 this.ea.publish(new ContactViewed(this.contact));
             }
 
