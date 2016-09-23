@@ -22,6 +22,7 @@ export class Notification {
 
     error() {
         return new Promise(resolve => {
+            toastr.clear();
             toastr.error("Check form errors, you can not submit changes");
         });
     }

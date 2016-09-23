@@ -242,6 +242,7 @@ define('helpers/notification',["require", "exports", 'alertify', 'toastr'], func
         };
         Notification.prototype.error = function () {
             return new Promise(function (resolve) {
+                toastr.clear();
                 toastr.error("Check form errors, you can not submit changes");
             });
         };
