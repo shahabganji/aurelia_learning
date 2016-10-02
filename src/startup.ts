@@ -1,4 +1,4 @@
-import {Aurelia} from 'aurelia-framework'
+import { Aurelia } from 'aurelia-framework'
 import environment from './environment';
 
 //Configure Bluebird Promises.
@@ -14,7 +14,8 @@ export function configure(aurelia: Aurelia) {
     .standardConfiguration()
     .feature('resources')
     .feature('assets')
-    .plugin( "aurelia-validation" )
+    .plugin("aurelia-validation")
+    .plugin("aurelia-animator-css")
     ;
 
   if (environment.debug) {

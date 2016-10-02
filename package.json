@@ -9,7 +9,7 @@
   "license": "MIT",
   "dependencies": {
     "alertifyjs": "^1.8.0",
-    "aurelia-animator-css": "^1.0.0",
+    "aurelia-animator-css": "^1.0.1",
     "aurelia-bootstrapper": "^1.0.0",
     "aurelia-fetch-client": "^1.0.0",
     "aurelia-validation": "^0.12.5",

@@ -122,6 +122,11 @@
             "main": "aurelia-templating-resources"
           },
           {
+            "name": "aurelia-animator-css",
+            "path": "../node_modules/aurelia-animator-css/dist/amd",
+            "main": "aurelia-animator-css"
+          },
+          {
             "name": "aurelia-validation",
             "path": "../node_modules/aurelia-validation/dist/amd",
             "main": "aurelia-validation"
