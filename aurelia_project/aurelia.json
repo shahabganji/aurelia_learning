@@ -187,7 +187,15 @@
               "jquery"
             ],
             "exports": "$"
-          }
+          } , 
+          {
+            "name": "aurelia-star-rate",
+            "path": "../node_modules/aurelia-star-rate/dist/amd",
+            "main": "aurelia-star-rate",
+            "resources": [
+              "elements/star-rate.html"
+            ]
+    }
         ]
       }
     ]

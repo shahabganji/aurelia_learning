@@ -16,6 +16,7 @@ export function configure(aurelia: Aurelia) {
     .feature('assets')
     .plugin("aurelia-validation")
     .plugin("aurelia-animator-css")
+    .plugin( "aurelia-star-rate" )
     ;
 
   if (environment.debug) {
