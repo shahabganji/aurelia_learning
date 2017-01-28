@@ -1,0 +1,165 @@
+{
+  "resolution": "main",
+  "tree": {
+    "src": "https://raw.githubusercontent.com/shahabganji/aurelia-star-rate/master/typings.json",
+    "raw": "github:shahabganji/aurelia-star-rate",
+    "main": "dist/amd/aurelia-star-rate",
+    "dependencies": {
+      "aurelia-binding": {
+        "src": "https://raw.githubusercontent.com/aurelia/binding/master/typings.json",
+        "raw": "github:aurelia/binding",
+        "main": "dist/aurelia-binding.d.ts",
+        "name": "aurelia-binding"
+      },
+      "aurelia-bootstrapper": {
+        "src": "https://raw.githubusercontent.com/aurelia/bootstrapper/master/typings.json",
+        "raw": "github:aurelia/bootstrapper",
+        "main": "dist/aurelia-bootstrapper.d.ts",
+        "name": "aurelia-bootstrapper"
+      },
+      "aurelia-dependency-injection": {
+        "src": "https://raw.githubusercontent.com/aurelia/dependency-injection/master/typings.json",
+        "raw": "github:aurelia/dependency-injection",
+        "main": "dist/aurelia-dependency-injection.d.ts",
+        "name": "aurelia-dependency-injection"
+      },
+      "aurelia-event-aggregator": {
+        "src": "https://raw.githubusercontent.com/aurelia/event-aggregator/master/typings.json",
+        "raw": "github:aurelia/event-aggregator",
+        "main": "dist/aurelia-event-aggregator.d.ts",
+        "name": "aurelia-event-aggregator"
+      },
+      "aurelia-fetch-client": {
+        "src": "https://raw.githubusercontent.com/aurelia/fetch-client/master/typings.json",
+        "raw": "github:aurelia/fetch-client",
+        "main": "dist/aurelia-fetch-client.d.ts",
+        "name": "aurelia-fetch-client"
+      },
+      "aurelia-framework": {
+        "src": "https://raw.githubusercontent.com/aurelia/framework/master/typings.json",
+        "raw": "github:aurelia/framework",
+        "main": "dist/aurelia-framework.d.ts",
+        "name": "aurelia-framework"
+      },
+      "aurelia-history": {
+        "src": "https://raw.githubusercontent.com/aurelia/history/master/typings.json",
+        "raw": "github:aurelia/history",
+        "main": "dist/aurelia-history.d.ts",
+        "name": "aurelia-history"
+      },
+      "aurelia-history-browser": {
+        "src": "https://raw.githubusercontent.com/aurelia/history-browser/master/typings.json",
+        "raw": "github:aurelia/history-browser",
+        "main": "dist/aurelia-history-browser.d.ts",
+        "name": "aurelia-history-browser"
+      },
+      "aurelia-loader": {
+        "src": "https://raw.githubusercontent.com/aurelia/loader/master/typings.json",
+        "raw": "github:aurelia/loader",
+        "main": "dist/aurelia-loader.d.ts",
+        "name": "aurelia-loader"
+      },
+      "aurelia-logging": {
+        "src": "https://raw.githubusercontent.com/aurelia/logging/master/typings.json",
+        "raw": "github:aurelia/logging",
+        "main": "dist/aurelia-logging.d.ts",
+        "name": "aurelia-logging"
+      },
+      "aurelia-logging-console": {
+        "src": "https://raw.githubusercontent.com/aurelia/logging-console/master/typings.json",
+        "raw": "github:aurelia/logging-console",
+        "main": "dist/aurelia-logging-console.d.ts",
+        "name": "aurelia-logging-console"
+      },
+      "aurelia-metadata": {
+        "src": "https://raw.githubusercontent.com/aurelia/metadata/master/typings.json",
+        "raw": "github:aurelia/metadata",
+        "main": "dist/aurelia-metadata.d.ts",
+        "dependencies": {
+          "aurelia-pal": {
+            "src": "https://raw.githubusercontent.com/aurelia/pal/master/typings.json",
+            "raw": "github:aurelia/pal",
+            "main": "dist/aurelia-pal.d.ts",
+            "name": "aurelia-pal"
+          }
+        },
+        "name": "aurelia-metadata"
+      },
+      "aurelia-pal": {
+        "src": "https://raw.githubusercontent.com/aurelia/pal/master/typings.json",
+        "raw": "github:aurelia/pal",
+        "main": "dist/aurelia-pal.d.ts",
+        "name": "aurelia-pal"
+      },
+      "aurelia-pal-browser": {
+        "src": "https://raw.githubusercontent.com/aurelia/pal-browser/master/typings.json",
+        "raw": "github:aurelia/pal-browser",
+        "main": "dist/aurelia-pal-browser.d.ts",
+        "dependencies": {
+          "aurelia-pal": {
+            "src": "https://raw.githubusercontent.com/aurelia/pal/master/typings.json",
+            "raw": "github:aurelia/pal",
+            "main": "dist/aurelia-pal.d.ts",
+            "name": "aurelia-pal"
+          }
+        },
+        "name": "aurelia-pal-browser"
+      },
+      "aurelia-path": {
+        "src": "https://raw.githubusercontent.com/aurelia/path/master/typings.json",
+        "raw": "github:aurelia/path",
+        "main": "dist/aurelia-path.d.ts",
+        "name": "aurelia-path"
+      },
+      "aurelia-polyfills": {
+        "src": "https://raw.githubusercontent.com/aurelia/polyfills/master/typings.json",
+        "raw": "github:aurelia/polyfills",
+        "main": "dist/aurelia-polyfills.d.ts",
+        "name": "aurelia-polyfills"
+      },
+      "aurelia-route-recognizer": {
+        "src": "https://raw.githubusercontent.com/aurelia/route-recognizer/master/typings.json",
+        "raw": "github:aurelia/route-recognizer",
+        "main": "dist/aurelia-route-recognizer.d.ts",
+        "name": "aurelia-route-recognizer"
+      },
+      "aurelia-router": {
+        "src": "https://raw.githubusercontent.com/aurelia/router/master/typings.json",
+        "raw": "github:aurelia/router",
+        "main": "dist/aurelia-router.d.ts",
+        "name": "aurelia-router"
+      },
+      "aurelia-task-queue": {
+        "src": "https://raw.githubusercontent.com/aurelia/task-queue/master/typings.json",
+        "raw": "github:aurelia/task-queue",
+        "main": "dist/aurelia-task-queue.d.ts",
+        "name": "aurelia-task-queue"
+      },
+      "aurelia-templating": {
+        "src": "https://raw.githubusercontent.com/aurelia/templating/master/typings.json",
+        "raw": "github:aurelia/templating",
+        "main": "dist/aurelia-templating.d.ts",
+        "name": "aurelia-templating"
+      },
+      "aurelia-templating-binding": {
+        "src": "https://raw.githubusercontent.com/aurelia/templating-binding/master/typings.json",
+        "raw": "github:aurelia/templating-binding",
+        "main": "dist/aurelia-templating-binding.d.ts",
+        "name": "aurelia-templating-binding"
+      },
+      "aurelia-templating-resources": {
+        "src": "https://raw.githubusercontent.com/aurelia/templating-resources/master/typings.json",
+        "raw": "github:aurelia/templating-resources",
+        "main": "dist/aurelia-templating-resources.d.ts",
+        "name": "aurelia-templating-resources"
+      },
+      "aurelia-templating-router": {
+        "src": "https://raw.githubusercontent.com/aurelia/templating-router/master/typings.json",
+        "raw": "github:aurelia/templating-router",
+        "main": "dist/aurelia-templating-router.d.ts",
+        "name": "aurelia-templating-router"
+      }
+    },
+    "name": "aurelia-star-rate"
+  }
+}
