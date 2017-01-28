@@ -128,6 +128,18 @@ export class WebAPI {
     });
   }
 
+  removeContact(id) {
+    this.isRequesting = true;
+    return new Promise(resolve => {
+      setTimeout(() => {
+        let found_index = contacts.findIndex(x => x.id === id)[0];
+        contacts.splice(found_index, 1);
+        resolve(true);
+        this.isRequesting = false;
+      }, latency);
+    });
+  }
+
   saveContact(contact) {
     this.isRequesting = true;
     return new Promise(resolve => {

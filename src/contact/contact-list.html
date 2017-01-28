@@ -2,11 +2,18 @@
 
     <ul class="list-group aurelia-animators au-stagger">
         <li repeat.for="contact of contacts" class="list-group-item au-animate ${contact.id === $parent.selectedId ? 'active' : ''}">
+
             <star-rate class="pull-right" read-only.bind="true" rate.bind="contact.rate" max-rate.bind="5"></star-rate>
+
+
             <a route-href="route: contact-details; params.bind: {id:contact.id}" click.delegate="$parent.select(contact)">
                 <h4 class="list-group-item-heading">${contact.firstName} ${contact.lastName}</h4>
                 <p class="list-group-item-text">${contact.email}</p>
             </a>
+            &nbsp;
+            <span class="glyphicon glyphicon-remove pull-right" 
+                click.delegate="deleteContact(contact,$index)"
+            style="color:darkred; cursor: pointer"></span>
         </li>
     </ul>
 </template>

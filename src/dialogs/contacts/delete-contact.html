@@ -1,0 +1,25 @@
+<template>
+
+    <div tabindex="-1" role="dialog">
+        <ai-dialog>
+
+            <ai-dialog-header>
+                <button type="button" click.trigger="no()" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">${confirmationTitle}</h4>
+            </ai-dialog-header>
+
+            <ai-dialog-body>
+                ${confirmationMessage}
+            </ai-dialog-body>
+
+            <ai-dialog-footer>
+                <button click.delegate="yes()" class="btn btn-primary">Yes :)</button>
+                <button click.delegate="no()" class="btn btn-default">No :(</button>
+            </ai-dialog-footer>
+
+        </ai-dialog>
+        <!-- /.modal-dialog-->
+    </div>
+    <!-- /.dialog-->
+
+</template>
