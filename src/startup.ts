@@ -18,7 +18,6 @@ export function configure(aurelia: Aurelia) {
     .plugin("aurelia-animator-css")
     .plugin( 'aurelia-star-rate' )
     .plugin( 'aurelia-dialog' );
-    ;
 
   if (environment.debug) {
     aurelia.use.developmentLogging();

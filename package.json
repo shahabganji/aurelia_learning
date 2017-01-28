@@ -13,7 +13,9 @@
     "aurelia-bootstrapper": "^1.0.0",
     "aurelia-dialog": "^1.0.0-beta.3.0.1",
     "aurelia-fetch-client": "^1.0.0",
+
     "aurelia-star-rate": "^1.0.0",
+
     "aurelia-validation": "^0.12.5",
     "bluebird": "^3.4.1",
     "bootstrap": "^3.3.7",
