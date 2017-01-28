@@ -154,7 +154,7 @@
               "jquery"
             ],
             "exports": "$"
-          } , 
+          },
           {
             "name": "alertify",
             "path": "../node_modules/alertifyjs/build",
@@ -166,8 +166,7 @@
               "jquery"
             ],
             "exports": "$"
-          } , 
-
+          },
           {
             "name": "nprogress",
             "path": "../node_modules/nprogress",
@@ -175,7 +174,7 @@
             "resources": [
               "nprogress.css"
             ]
-          } , 
+          },
           {
             "name": "toastr",
             "path": "../node_modules/toastr",
@@ -187,6 +186,14 @@
               "jquery"
             ],
             "exports": "$"
+          },
+          {
+            "name": "aurelia-star-rate",
+            "path": "../node_modules/aurelia-star-rate/dist/amd",
+            "main": "aurelia-star-rate",
+            "resources": [
+              "elements/star-rate.html"
+            ]
           }
         ]
       }
