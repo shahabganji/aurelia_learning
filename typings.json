@@ -1,6 +1,7 @@
 {
   "name": "aurelia_learning",
   "dependencies": {
+    "aurelia-dialog": "github:aurelia/dialog",
     "aurelia-star-rate": "github:shahabganji/aurelia-star-rate"
   },
   "globalDevDependencies": {
